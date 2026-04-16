@@ -64,9 +64,14 @@ INSERT INTO faixa_preco (id_faixa, descricao, preco_min, preco_max) VALUES
 
 -- RESPOSTAS DOS DESAFIOS
 -- DESAFIO 01 - Listas todos os produtos disponíveis, mostrando quantas vezes cada um foi vendido - mesmo que nunca tenha sido vendido.
-SELECT * FROM produtos P
+SELECT P.id_produto,
+	   P.nome AS Produto,
+       P.preco,
+       sum(V.quantidade) AS Qtde_Total
+FROM produtos P
 LEFT JOIN vendas V
-ON P.id_produto = V.id_produto;
+ON P.id_produto = V.id_produto
+GROUP BY P.id_produto;
 
 -- DESAFIO 02 - Classificar os produtos em categorias de preço.
 SELECT P.id_produto,

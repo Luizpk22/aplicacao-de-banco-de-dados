@@ -12,7 +12,7 @@ CREATE TABLE tb_clientes_score (
     score_credito INT
 );
 
--- CRIANDO A TABELA DE FIAX DE SCORE
+-- CRIANDO A TABELA DE FAIXA DE SCORE
 CREATE TABLE tb_faixa_score (
     faixa_id INT PRIMARY KEY,
     score_min INT,
@@ -44,3 +44,34 @@ SELECT C.nome AS Cliente,
 FROM tb_clientes_score AS C
 JOIN tb_faixa_score AS F
 ON C.score_credito BETWEEN F.score_min AND F.score_max;
+
+-- EXEMPLO UTILIZANDO O LEFT JOIN
+DROP TABLE IF EXISTS matriculas;
+DROP TABLE IF EXISTS alunos;
+
+-- Tabela de alunos
+CREATE TABLE alunos (
+    aluno_id INT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+-- Inserts alunos
+INSERT INTO alunos (aluno_id, nome) VALUES
+(101, 'Alice'),
+(102, 'Bruno'),
+(103, 'Carla');
+
+-- Tabela de matrículas
+CREATE TABLE matriculas (
+    matricula_id INT PRIMARY KEY,
+    aluno_id INT,
+    curso VARCHAR(100),
+    FOREIGN KEY (aluno_id) REFERENCES alunos(aluno_id)
+);
+-- Inserts matrículas
+INSERT INTO matriculas (matricula_id, aluno_id, curso) VALUES
+(1, 101, 'Matemática'),
+(2, 102, 'História');
+
+SELECT * FROM alunos A
+LEFT JOIN matriculas M
+ON A.aluno_id = M.aluno_id;

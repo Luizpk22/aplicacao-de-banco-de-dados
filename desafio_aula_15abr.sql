@@ -72,7 +72,7 @@ ON P.id_produto = V.id_produto;
 SELECT P.id_produto,
 	   P.nome AS Produto,
        P.preco,
-       F.descricao
+       F.descricao AS Categoria
 FROM produtos P
 JOIN faixa_preco F
 ON P.preco BETWEEN F.preco_min AND F.preco_max;
